@@ -20,3 +20,7 @@
         @endforeach
     </ul>
 </div>
+
+<div class="mb-4">
+    {{ $tweets->links() }}
+</div>

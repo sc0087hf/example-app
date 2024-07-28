@@ -18,6 +18,7 @@ class Tweet extends Model
 
     public function images() {
         return $this->belongsToMany(Image::class, 'tweet_images')
-            ->using(TweetImage::class);
+            ->using(TweetImage::class)
+            ->withTimestamps();
     }
 }
