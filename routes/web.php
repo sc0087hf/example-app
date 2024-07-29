@@ -44,6 +44,7 @@ Route::middleware('auth')
         Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->whereNumber('tweetId')->name('tweet.delete');
     });
 
+Route::get('/tweet/member/{userId}', \App\Http\Controllers\Tweet\MemberPage\IndexController::class)->whereNumber('userId')->name('tweet.member');
 
 Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
 
