@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\Tweet;
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,5 +55,16 @@ class TweetService
 
             $tweet->delete();
         });
+    }
+
+    public function getMemberTweet(int $userId)
+    {
+        return $tweet = Tweet::where('user_id', $userId)->orderBy('created_at', 'DESC')->paginate(10);
+    }
+
+    public function getUserName(int $userId)
+    {
+        $getUserName = User::where('id', $userId)->first();
+        return $userName = $getUserName->name;
     }
 }
