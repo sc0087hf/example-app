@@ -11,6 +11,6 @@
             ];
         @endphp
             <x-element.breadcrumbs :breadcrumbs="$breadcrumbs"></x-element.breadcrumbs>
-            <x-tweet.list-member :tweets="$tweets" :user="$user"></x-tweet.list-member>
+            <x-tweet.list-member :tweets="$tweets" :user="$user" :countTweet="$countTweet"></x-tweet.list-member>
         </x-layout.single>
 </x-layout>

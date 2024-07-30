@@ -6,6 +6,8 @@ use App\Mail\NewUserIntroduction;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\PositiveMessage;
+use App\Http\Controllers\CsvExportController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +55,10 @@ Route::post('/tweet/member', \App\Http\Controllers\Tweet\MemberPage\PostControll
 
 Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
 
+//csv出力
+Route::get('/export-csv', [CsvExportController::class, 'export'])->name('export.csv');
+
+//メール送信
 Route::get('/send-test-mail', function() {
     $users = User::all();
     foreach($users as $user) {

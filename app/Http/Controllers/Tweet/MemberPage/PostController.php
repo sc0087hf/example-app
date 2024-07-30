@@ -16,6 +16,7 @@ class PostController extends Controller
     {
         $tweets = $tweetService->getMemberTweet($request->member);
         $user = $tweetService->getUserName($request->member);
-        return view('tweet.member-page', compact(['tweets', 'user']));
+        $countTweet = $tweetService->countTweet($request->member);
+        return view('tweet.member-page', compact(['tweets', 'user', 'countTweet']));
     }
 }

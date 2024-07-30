@@ -66,4 +66,9 @@ class TweetService
     {
         return $user = User::where('id', $userId)->first();
     }
+
+    public function countTweet(int $userId)
+    {
+        return $countTweet = Tweet::where('user_id', $userId)->count();
+    }
 }

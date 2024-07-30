@@ -4,7 +4,7 @@
 @if($tweets->isEmpty())
     <h2 class="text-center font-bold mt-8 mb-8">{{ $user->name }}さんはまだつぶやいていません。</h2>
 @else
-    {{-- <p class="p-4">{{ $tweets->count()}}件つぶやきがあります←違う。</p> --}}
+    <p class="p-4">{{ $countTweet }}件つぶやきがあります</p>
     <div class="bg-white rounded-md shadow-lg mt-5 mb-5">
         <ul>
             @foreach($tweets as $tweet)
