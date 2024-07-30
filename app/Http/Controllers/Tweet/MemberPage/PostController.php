@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Tweet\MemberPage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tweet;
+use App\Models\User;
 use App\Services\TweetService;
 
-class IndexController extends Controller
+class PostController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request, TweetService $tweetService)
     {
-        $tweets = $tweetService->getMemberTweet($request->userId);
-        $user = $tweetService->getUserName($request->userId);
+        $tweets = $tweetService->getMemberTweet($request->member);
+        $user = $tweetService->getUserName($request->member);
         return view('tweet.member-page', compact(['tweets', 'user']));
     }
 }

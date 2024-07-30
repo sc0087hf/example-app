@@ -33,18 +33,23 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+//練習のサンプルサイト
 Route::get('/sample', [\App\Http\Controllers\Sample\IndexController::class, 'show']);
 Route::get('/sample/{id}', [\App\Http\Controllers\Sample\IndexController::class, 'showId']);
 
+
+//つぶやきサイト
 Route::middleware('auth')
+    ->name('tweet.')
     ->group(function() {
-        Route::post('/tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('tweet.create');
-        Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->whereNumber('tweetId')->name('tweet.update.index');
-        Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->whereNumber('tweetId')->name('tweet.update.put');
-        Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->whereNumber('tweetId')->name('tweet.delete');
+        Route::post('/tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('create');
+        Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->whereNumber('tweetId')->name('update.index');
+        Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->whereNumber('tweetId')->name('update.put');
+        Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->whereNumber('tweetId')->name('delete');
     });
 
 Route::get('/tweet/member/{userId}', \App\Http\Controllers\Tweet\MemberPage\IndexController::class)->whereNumber('userId')->name('tweet.member');
+Route::post('/tweet/member', \App\Http\Controllers\Tweet\MemberPage\PostController::class)->name('tweet.post.member');
 
 Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
 

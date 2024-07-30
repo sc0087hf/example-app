@@ -64,7 +64,6 @@ class TweetService
 
     public function getUserName(int $userId)
     {
-        $getUserName = User::where('id', $userId)->first();
-        return $userName = $getUserName->name;
+        return $user = User::where('id', $userId)->first();
     }
 }
