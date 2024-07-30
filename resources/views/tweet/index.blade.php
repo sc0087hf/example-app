@@ -4,6 +4,7 @@
             つぶやきアプリ
         </h2>
         <x-tweet.form.post></x-tweet.form.post>
+        <x-tweet.form.member-fileter :users="$users"></x-tweet.form.member-fileter>
         <x-tweet.list :tweets="$tweets"></x-tweet.list>
     </x-layout.single>
 </x-layout>

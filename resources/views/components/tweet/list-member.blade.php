@@ -1,9 +1,13 @@
-@props([
+{{-- @props([
     'tweets' => []
-])
-<div class="bg-white rounded-md shadow-lg mt-5 mb-5">
-    <ul>
-        @foreach($tweets as $tweet)
+]) --}}
+@if($tweets->isEmpty())
+    <h2 class="text-center font-bold mt-8 mb-8">{{ $user->name }}さんはまだつぶやいていません。</h2>
+@else
+    {{-- <p class="p-4">{{ $tweets->count()}}件つぶやきがあります←違う。</p> --}}
+    <div class="bg-white rounded-md shadow-lg mt-5 mb-5">
+        <ul>
+            @foreach($tweets as $tweet)
                 <li class="border-b last:border-b-0 border-gray-200 p-4 flex items-start justify-between">
                     <div>
                         <a href="{{ route('tweet.member', [$tweet->user_id])}}">
@@ -19,10 +23,10 @@
                         <x-tweet.options :tweetId="$tweet->id" :userId="$tweet->user_id"></x-tweet.options>
                     </div>
                 </li>
-        @endforeach
-    </ul>
-</div>
-
-<div class="mb-4">
-    {{ $tweets->links() }}
-</div>
+            @endforeach
+        </ul>    
+    </div>
+    <div class="mb-4">
+        {{ $tweets->links() }}
+    </div>
+@endif
