@@ -6,11 +6,11 @@
         
         <x-tweet.form.post></x-tweet.form.post>
         <x-tweet.form.member-fileter :users="$users"></x-tweet.form.member-fileter>
+        @auth
         <div class="bg-white rounded-md shadow-lg mt-4 p-4">
-            @auth
                 <a href="{{ route('export.csv') }}" class="">ユーザー情報をCSVファイルで出力する</a>    
-            @endauth
         </div>
+        @endauth
         <x-tweet.list :tweets="$tweets"></x-tweet.list>
     </x-layout.single>
 </x-layout>
