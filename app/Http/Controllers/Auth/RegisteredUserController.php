@@ -50,8 +50,8 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         //メールの送信処理を追加
-        $mailer->to('t.yajima@itreat.co.jp')
-            ->send(new NewUserIntroduction());
+        // $mailer->to('t.yajima@itreat.co.jp')
+        //     ->send(new NewUserIntroduction());
 
         return redirect(RouteServiceProvider::HOME);
     }

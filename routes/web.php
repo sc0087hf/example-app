@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\PositiveMessage;
 use App\Http\Controllers\CsvExportController;
+use App\Http\Controllers\Sample\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,29 +36,42 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//練習のサンプルサイト
-Route::get('/sample', [\App\Http\Controllers\Sample\IndexController::class, 'show']);
-Route::get('/sample/{id}', [\App\Http\Controllers\Sample\IndexController::class, 'showId']);
-
-
-//つぶやきサイト
-Route::middleware('auth')
-    ->name('tweet.')
+//MVC練習のサイト
+Route::prefix('sample')
+    ->controller(IndexController::class)
     ->group(function() {
-        Route::post('/tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('create');
-        Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->whereNumber('tweetId')->name('update.index');
-        Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->whereNumber('tweetId')->name('update.put');
-        Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->whereNumber('tweetId')->name('delete');
+        Route::get('/', 'show');
+        Route::get('/{id}', 'showId')->whereNumber('id');
     });
 
-Route::get('/tweet/member/{userId}', \App\Http\Controllers\Tweet\MemberPage\IndexController::class)->whereNumber('userId')->name('tweet.member');
-Route::post('/tweet/member', \App\Http\Controllers\Tweet\MemberPage\PostController::class)->name('tweet.post.member');
+//つぶやきサイト
+Route::prefix('tweet')
+    ->name('tweet.')
+    ->group(function() {
+        //つぶやきサイトトップ
+        Route::get('/', \App\Http\Controllers\Tweet\IndexController::class)->name('index');
 
-Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
+        //つぶやきCRUD
+        Route::post('/create', \App\Http\Controllers\Tweet\CreateController::class)->name('create')->middleware('auth');
+        Route::get('/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->whereNumber('tweetId')->name('update.index')->middleware('auth');
+        Route::put('/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->whereNumber('tweetId')->name('update.put')->middleware('auth');
+        Route::delete('/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->whereNumber('tweetId')->name('delete')->middleware('auth');
+
+        //個人つぶやきの処理
+        Route::get('/member/{userId}', \App\Http\Controllers\Tweet\MemberPage\IndexController::class)->whereNumber('userId')->name('member');
+        Route::post('/member', \App\Http\Controllers\Tweet\MemberPage\PostController::class)->name('post.member');
+    });
 
 //csv出力
-Route::get('/export-csv', [CsvExportController::class, 'exportUser'])->name('export.csv');
-Route::get('/export-csv/{userId}', [CsvExportController::class, 'exportTweet'])->whereNumber('userId')->name('export.tweet.csv');
+Route::prefix('export-csv')
+    ->name('export.')
+    ->controller(CsvExportController::class)
+    ->group(function() {
+        //ユーザー一覧を出力
+        Route::get('', 'exportUser')->name('csv');
+        //ユーザーのつぶやきを出力
+        Route::get('/{userId}', 'exporTweet')->whereNumber('userId')->name('tweet.csv');
+    });
 
 //メール送信
 Route::get('/send-test-mail', function() {
