@@ -51,20 +51,18 @@ class CsvExportController extends Controller
             'Content-Disposition' => "attachment; filename=\"$fileName\"",
         ];
 
-        $callback = function() {
+        $callback = function() use ($userId) {
             // UTF-8 BOMを追加
             $file = fopen('php://output', 'w');
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
-
             // CSVヘッダーの書き込み
             fputcsv($file, ['ID', 'Content', 'Created At']);
-
+            
             // ユーザーのつぶやきデータの取得
-            $tweets = Tweet::where('user_id', $userId)->all();
-
+            $tweets = Tweet::where('user_id', $userId)->get();
             // ユーザーのつぶやきデータの書き込み
             foreach ($tweets as $tweet) {
-                fputcsv($file, [$tweet->id, $tweet->content, $tweet->created_at]);
+              fputcsv($file, [$tweet->id, $tweet->content, $tweet->created_at]);
             }
 
             fclose($file);
