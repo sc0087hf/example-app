@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 class CsvExportController extends Controller
 {
-    public function export()
+    public function exportUser()
     {
+        $fileName = 'users_' . Carbon::now()->format('Ymd') . '.csv';
         $headers = [
             'Content-Type' => 'text/csv; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="users.csv"',
+            'Content-Disposition' => "attachment; filename=\"$fileName\"",
         ];
 
         $callback = function() {
@@ -36,4 +38,5 @@ class CsvExportController extends Controller
 
         return Response::stream($callback, 200, $headers);
     }
+
 }

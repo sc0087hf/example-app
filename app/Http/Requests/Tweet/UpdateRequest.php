@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tweet'=> 'required|max:140',
+            'tweet'=> 'required|max:300',
         ];
     }
     public function tweet(): string

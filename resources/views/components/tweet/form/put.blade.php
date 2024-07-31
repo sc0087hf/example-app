@@ -16,7 +16,7 @@
                 placeholder="つぶやきを入力">{{ $tweet->content }}</textarea>
         </div>
         <p class="mt-2 text-sm text-gray-500">
-            140文字まで
+            300文字まで
         </p>
 
         @error('tweet')

@@ -22,7 +22,7 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tweet' => 'required|max:140',
+            'tweet' => 'required|max:300',
             'images' => 'array|max:4',
             'images*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];

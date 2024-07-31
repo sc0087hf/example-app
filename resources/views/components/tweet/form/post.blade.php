@@ -10,7 +10,7 @@
                 placeholder="つぶやきを入力"></textarea>
         </div>
         <p class="mt-2 text-sm text-gray-500">
-            140文字まで
+            300文字まで
         </p>
         <x-tweet.form.images></x-tweet.form.images>
 

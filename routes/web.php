@@ -56,7 +56,8 @@ Route::post('/tweet/member', \App\Http\Controllers\Tweet\MemberPage\PostControll
 Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
 
 //csv出力
-Route::get('/export-csv', [CsvExportController::class, 'export'])->name('export.csv');
+Route::get('/export-csv', [CsvExportController::class, 'exportUser'])->name('export.csv');
+Route::get('/export-csv/{user}', [CsvExportController::class, 'exportTweet'])->name('export.tweet.csv');
 
 //メール送信
 Route::get('/send-test-mail', function() {
