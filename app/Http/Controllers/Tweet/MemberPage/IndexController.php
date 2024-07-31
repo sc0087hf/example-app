@@ -16,6 +16,7 @@ class IndexController extends Controller
     {
         $tweets = $tweetService->getMemberTweet($request->userId);
         $user = $tweetService->getUserName($request->userId);
-        return view('tweet.member-page', compact(['tweets', 'user']));
+        $countTweet = $tweetService->countTweet($request->userId);
+        return view('tweet.member-page', compact(['tweets', 'user', 'countTweet']));
     }
 }

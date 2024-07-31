@@ -14,9 +14,7 @@ class PostController extends Controller
      */
     public function __invoke(Request $request, TweetService $tweetService)
     {
-        $tweets = $tweetService->getMemberTweet($request->member);
-        $user = $tweetService->getUserName($request->member);
-        $countTweet = $tweetService->countTweet($request->member);
-        return view('tweet.member-page', compact(['tweets', 'user', 'countTweet']));
+        $userId = (int) $request->member;
+        return redirect(route('tweet.member', compact('userId')));
     }
 }
